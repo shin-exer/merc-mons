@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="jp">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>メルスト ギルバト偵察ツール</title>
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <style>
+    html {
+      font-size: 14px;
+    }
+
+    select {
+      width: 12em;
+    }
+
+    button {
+      font-size: 1.1rem;
+    }
+
+    input {
+      font-size: 1.1rem;
+    }
+
+    input::placeholder {
+      font-size: 0.9rem;
+      color: burlywood;
+    }
+
+    td {
+      padding: 1ex 0;
+      text-align: center;
+      vertical-align: middle;
+      border: none;
+    }
+
+    .id,.type,.hp,.hard,.reach,.target,.atkcount {
+      display: none;
+    }
+
+    .result {
+      margin-top: 1.5ex;
+    }
+
+    .copy {
+      margin-left: 1ex;
+    }
+
+    .description {
+      margin-top: 10em;
+      font-size: 90%;
+    }
+    
+    .sc-hp {
+      width: 10em;
+    }
+
+    .input-sc-hp {
+      width: 3em;
+      text-align: right;
+    }
+
+    .pray-value {
+      width: 10em;
+    }
+
+    .description p {
+      margin-left: 2em;
+    }
+
+    table {
+      border: none;
+      border-collapse: collapse;
+    }
+    table tr:nth-child(even) {
+      background-color: #ECF0F1;
+    }
+  </style>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TWRDCGH');</script>
+<!-- End Google Tag Manager -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+</head>
+
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TWRDCGH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+  <div id="content">
+    <table>
+      <thead>
+        <tr>
+          <th class="name">名前</th>
+          <th class="type">属性</th>
+          <th class="hard">外皮</th>
+          <th class="hp">体力</th>
+          <th class="reach">リーチ</th>
+          <th class="target">攻撃数</th>
+          <th class="atkcount">段数</th>
+          <th class="sc-hp">偵察HP</th>
+          <th class="pray-value">祈り値</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><select id="1"></select></td>
+          <td id="1-id" class="id"></td>
+          <td id="1-type" class="type"></td>
+          <td id="1-hard" class="hard"></td>
+          <td id="1-hp" class="hp"></td>
+          <td id="1-reach" class="reach"></td>
+          <td id="1-target" class="target"></td>
+          <td id="1-atkcount" class="atkcount"></td>
+          <td><input type="tel" id="1-sc-hp" class="input-sc-hp" data-rownum="1">,000,000</td>
+          <td id="1-pray-value"></td>
+        </tr>
+        <tr>
+          <td><select id="2"></select></td>
+          <td id="2-id" class="id"></td>
+          <td id="2-type" class="type"></td>
+          <td id="2-hard" class="hard"></td>
+          <td id="2-hp" class="hp"></td>
+          <td id="2-reach" class="reach"></td>
+          <td id="2-target" class="target"></td>
+          <td id="2-atkcount" class="atkcount"></td>
+          <td id="1-atkcount" class="atkcount"></td>
+          <td><input type="tel" id="2-sc-hp" class="input-sc-hp" data-rownum="2">,000,000</td>
+          <td id="2-pray-value"></td>
+        </tr>
+        <tr>
+          <td><select id="3"></select></td>
+          <td id="3-id" class="id"></td>
+          <td id="3-type" class="type"></td>
+          <td id="3-hard" class="hard"></td>
+          <td id="3-hp" class="hp"></td>
+          <td id="3-reach" class="reach"></td>
+          <td id="3-target" class="target"></td>
+          <td id="3-atkcount" class="atkcount"></td>
+          <td><input type="tel" id="3-sc-hp" class="input-sc-hp" data-rownum="3">,000,000</td>
+          <td id="3-pray-value"></td>
+        </tr>
+        <tr>
+          <td><select id="4"></select></td>
+          <td id="4-id" class="id"></td>
+          <td id="4-type" class="type"></td>
+          <td id="4-hard" class="hard"></td>
+          <td id="4-hp" class="hp"></td>
+          <td id="4-reach" class="reach"></td>
+          <td id="4-target" class="target"></td>
+          <td id="4-atkcount" class="atkcount"></td>
+          <td><input type="tel" id="4-sc-hp" class="input-sc-hp" data-rownum="4">,000,000</td>
+          <td id="4-pray-value"></td>
+        </tr>
+        <tr>
+          <td><select id="5"></select></td>
+          <td id="5-id" class="id"></td>
+          <td id="5-type" class="type"></td>
+          <td id="5-hard" class="hard"></td>
+          <td id="5-hp" class="hp"></td>
+          <td id="5-reach" class="reach"></td>
+          <td id="5-target" class="target"></td>
+          <td id="5-atkcount" class="atkcount"></td>
+          <td><input type="tel" id="5-sc-hp" class="input-sc-hp" data-rownum="5">,000,000</td>
+          <td id="5-pray-value"></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="result">
+      <input type="radio" name="result-type" id="resule-type-monster" value="monster" checked><label for="resule-type-monster">モンスターごとに表示</label>
+      <input type="radio" name="result-type" id="resule-type-category" value="category"><label for="resule-type-category">カテゴリごとに表示</label>
+      <input type="radio" name="result-type" id="resule-type-place" value="place"><label for="resule-type-place">場所のみ（祈り値表示）</label>
+    </div>
+    <div class="result"><input id="result1" class="input-result"><button id="exec1" class="copy">Copy</button></div>
+    <div class="result"><input id="result2" class="input-result"><button id="exec2" class="copy">Copy</button></div>
+    <div class="result">
+      <p>偵察場所：</p>
+      <div>
+        <input type="radio" name="place" id="place_yellow" value="左上黄"><label for="place_yellow">左上黄</label>
+        <input type="radio" name="place" id="place_red" value="右上赤"><label for="place_red">右上赤</label>
+      </div>
+      <div style="padding-left: 2em;">
+        <input type="radio" name="place" id="place_gate" value="ゲート" checked><label for="place_gate">ゲート</label>
+      </div>
+      <div>
+        <input type="radio" name="place" id="place_blue" value="左下青"><label for="place_blue">左下青</label>
+        <input type="radio" name="place" id="place_green" value="右下緑"><label for="place_green">右下緑</label>
+      </div>
+    </div>
+    <div class="result">
+      <input type="checkbox" value="showtype" id="showtype" name="showtype" /><label for="showtype">属性を表示する</label>
+    </div>
+    <div class="description">
+      <h1>モンスター偵察ツール</h1>
+      <h2>概要</h2>
+      <p>モンスターの情報を素早くギルログに流すためのツールです。</p>
+      <h2>使い方</h2>
+      <ol>
+        <li>「モンスターを選択」と書いてあるエリアをタップ・クリックするとモンスターの一覧が出ます。</li>
+        <li>「モンスター名で検索」エリアにモンスター名を入力し、絞りこみます。最低2文字の入力が必要です。モンスター名の一部のみでもヒットします。「フェニ」と入れると選択肢がフェニオン、フェニシャルルだけになります。ひらがな、ローマ字検索にも対応しております。「feni」「ふぇに」でも検索可能です。</li>
+        <li>偵察したHPを記入すると祈り値の概算が表示されます。コピペ用エリアに表示されるのは1体目の結果のみです。モンスターサイズは有人1.799、ゲート1.720で計算します。</li>
+        <li>絞り込みしたモンスターを選択すると、モンスターの情報が表示されます。「Copy」ボタンで表示情報をコピーできます。ギルログに貼り付けしましょう。</li>
+      </ol>
+      <h2>更新履歴</h2>
+      <ul>
+        <li>2021.04.03 ヒリング、メタモルの情報追加。</li>
+        <li>2021.03.11 エイマンディスの情報追加。</li>
+        <li>2021.02.03 ダイメアール、ラップルの情報追加。</li>
+        <li>2021.01.02 モイスフォア、ジョイバディ、ヌルバディの情報追加。</li>
+        <li>2021.12.02 エクラルポルテムの情報追加。ひらがな・ローマ字検索に対応。</li>
+        <li>2021.11.23 祈り値計算に対応。</li>
+        <li>2021.11.02 オルスウルサ、ララバイ、ネコマシンの情報追加。</li>
+        <li>2021.09.01 グラッピー、コットル、シュランクスの情報追加。</li>
+        <li>2021.07.31 セレスマリー、ロゴへ・トゥレムの情報追加。</li>
+        <li>2021.07.01 ダウゥツルの情報追加。</li>
+        <li>2021.06.28 クリムリリの情報追加。</li>
+        <li>2021.05.31 アゴニスカーの情報追加。</li>
+        <li>2021.04.30 ポププコス、スコクベセスの情報追加。</li>
+        <li>2021.04.15 マヨイヤの情報追加。属性の表示有無、偵察先の選択をできるようにした。</li>
+        <li>2021.04.05 初版公開</li>
+      </ul>
+      <h2>作者</h2>
+      <p>えくさん (検索コード：62wo9kr）</p>
+      <h2>ライセンス</h2>
+      <p>このツールは<a href="https://licenses.opensource.jp/MIT/MIT.html" about="_blank" rel="noreferrer">MITライセンスに準拠します。</a></p>
+      <h2>データ取得元</h2>
+      <p><a href="https://xn--cckza4aydug8bd3l.gamerch.com/%E3%83%9C%E3%82%B9%E3%83%A2%E3%83%B3%E3%82%B9%E3%82%BF%E3%83%BC%E4%B8%80%E8%A6%A7" target="_blank">メルクストーリア - 癒術士と鈴のしらべ -攻略Wiki【メルスト攻略】 - ボスモンスター一覧</a></p>
+    </div>
+  </div>
+<script>
+  /*
+    MIT Lisence
+    Copyright 2021 えくさん
+    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+  */
+  var NUM = [
+    "",
+    "①",
+    "②",
+    "③",
+    "④",
+    "⑤"
+  ],
+  cacheMonsters = {}
+
+  function mergeMonster(arr) {
+    arr.forEach((e, i) => {
+      let data = arr[i];
+      let obj = {};
+      obj[data.id] = data;
+      cacheMonsters = Object.assign(cacheMonsters, obj);
+    });
+  }
+
+  function buildOpt(mons) {
+    var opts = [];
+    for (m in mons) {
+      opts.push({
+        id: mons[m].id,
+        text: mons[m].name
+      })
+    }
+    return opts;
+  }
+
+  function toTypeString(object) {
+    return Object.prototype.toString.call(object);
+  }
+
+  function concat(callback, delimiter) {
+    var buf = '';
+    if (!delimiter) delimiter = ', ';
+    [1, 2, 3, 4, 5].forEach(i => {
+      var callbackResult = callback(i, buf);
+      if (callbackResult) buf += callbackResult;
+      if (i < 5 && buf) buf += delimiter;
+    });
+    return buf;
+  }
+
+  function makePlace() {
+    return '【' + $('[name="place"]:checked').val() + $('#1-pray-value').text() + '】';
+  }
+
+  function showMonsterInfo(rownum, id, mons) {
+    var monsinfo = mons[id];
+    if (!monsinfo) {
+      return;
+    }
+    $('#' + rownum + '-id').text(id);
+    $('#' + rownum + '-type').text(monsinfo.type);
+    $('#' + rownum + '-hard').text(monsinfo.hard);
+    $('#' + rownum + '-reach').text(
+      monsinfo.reach +
+      '-' + monsinfo.range
+    );
+    $('#' + rownum + '-target').text(monsinfo.target);
+    $('#' + rownum + '-atkcount').text(monsinfo.atkcount);
+    $('#' + rownum + '-hp').text((function () {
+      var hpdev = monsinfo.hpdev;
+      if (hpdev < 40) return '特小';
+      if (40 <= hpdev && hpdev < 45) return '小';
+      if (45 <= hpdev && hpdev < 55) return '並';
+      if (55 <= hpdev && hpdev < 60) return '大';
+      if (60 <= hpdev) return '特大';
+    })());
+  }
+
+  function showPrayValue(rownum, id, mons, schp) {
+    var result = '', monsinfo = mons[id];
+    if (schp && schp.match(/^\d+$/) && monsinfo) {
+      let size = $('#place_gate').prop('checked') ? '1720' : '1799';
+      let hp = Math.round(monsinfo.hp * size * (10 + 2 * (parseInt(rownum) - 1)) / 10000) ;
+      let iSchp = parseInt(schp) * 1000000;
+      result = Math.round(iSchp / hp / 10) / 10 + '万';
+    }
+    $('#' + rownum + '-pray-value').text(result);
+  }
+
+  function makeTextByCategory(mons) {
+    var text1 = makePlace() + concat((i, buf) => {
+      var m = mons[$('#' + i).val()];
+      return (m ? NUM[i] + m.name : '');
+    });
+    if ($('#showtype').prop('checked')) {
+      text1 += '属性(' + concat((i, buf) => {
+        return $('#' + i + '-type').text();
+      }) + ')';
+    }
+    text1 += ' 外皮(' + concat((i, buf) => {
+      return $('#' + i + '-hard').text();
+    }) + ')' +
+      ' 体力(' + concat((i, buf) => {
+        return $('#' + i + '-hp ').text();
+      }) + ')',
+      text2 = 'リーチ(' + concat((i, buf) => {
+        return $('#' + i + '-reach').text();
+      }) + ')' +
+      ' 攻撃数(' + concat((i, buf) => {
+        var ac = $('#' + i + '-target').text();
+        if (!ac) {
+          return "";
+        }
+        return ac + '体' + $('#' + i + '-atkcount').text() + '段';
+      }) + ')';
+    $("#result1").val(text1);
+    $("#result2").val(text2);
+  }
+
+  function makeTextByMonster(mons) {
+    var result = concat((i, buf) => {
+      var text = '',
+        m = mons[$('#' + i).val()];
+      if (!m) {
+        return '';
+      }
+      text += NUM[i] + m.name;
+      if ($('#showtype').prop('checked')) text += '/' + $('#' + i + '-type').text();
+      text += '/' + $('#' + i + '-hard').text()
+          + '/' + $('#' + i + '-hp').text()
+          + '/' + $('#' + i + '-reach').text()
+          + '/' + $('#' + i + '-target').text() + '体'
+          + $('#' + i + '-atkcount').text() + '段'
+      return text;
+    });
+    var arr = result.split(", ");
+    $("#result1").val(makePlace() + arr.slice(0, 2).join(" "));
+    $("#result2").val(arr.slice(2, 5).join(" "));
+  }
+
+  // On Load
+  $(function () {
+    function makeResult() {
+      if ($('[name="result-type"]:checked').val() == "monster") {
+        makeTextByMonster(cacheMonsters);
+      } else if ($('[name="result-type"]:checked').val() == "category") {
+        makeTextByCategory(cacheMonsters);
+      } else {
+        $("#result1").val(makePlace());
+        $('#result2').val('');
+      }
+    }
+    function dateFormat(date) {
+      let hour = date.getHours();
+      let min = date.getMinutes();
+      let sec = date.getSeconds();
+      let mils = date.getMilliseconds();
+      return (hour < 10 ? '0' + hour : '' + hour)
+          + ':' + (min < 10 ? '0' + min : min)
+          + ':' + (sec < 10 ? '0' + sec : sec)
+          + '.' +('' + mils).substr(0, 2);
+    }
+    // Select Box
+    [1, 2, 3, 4, 5].forEach(n => {
+      $("#" + n).select2({
+        ajax: { 
+          url:'search.php',
+          dataType: 'json',
+          delay: 250,
+          processResults: function(data, params) {
+            mergeMonster(data);
+            return {results:buildOpt(data)}
+          },
+        },
+        placeholder: {
+          id: '-1', // the value of the option
+          text: 'モンスターを選択'
+        },
+        minimumInputLength: 2,
+        language: {
+          noResults: function(){ return "見つかりません。";},
+          inputTooShort: function(args) {
+            var remainingChars = args.minimum - args.input.length;
+            var message = '少なくとも ' + remainingChars + ' 文字を入力してください';
+            return message;
+          }
+        },
+        escapeMarkup: function (markup) { return markup; }
+      })
+        .on('select2:open', function (e) {
+          $('.select2-search__field').attr('placeholder', 'モンスター名で検索');
+          $(".select2-search__field")[0].focus();
+        })
+        .on('change', function (e) {
+          var $self = $(this),
+            selectedRow = $self.attr('id');
+          showMonsterInfo(selectedRow, $self.val(), cacheMonsters);
+          showPrayValue(selectedRow, $self.val(), cacheMonsters, $('#' + selectedRow + '-sc-hp').val());
+          makeResult();
+        });
+    });
+    // Copy Button
+    [1, 2, 3, 4].forEach(i => $('#exec' + i).click(function () {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText($('#result' + i).val());
+      }
+    }));
+    // Scout Place
+    $('#showtype,[name="result-type"]').on('change', makeResult);
+    $('[name="place"]').on('change', function() {
+      [1,2,3,4,5].forEach((i) => {
+        var monsterid = $('#' + i + '-id').text(),
+            sc_hp = $('#' + i + '-sc-hp').val();
+        showPrayValue(i, monsterid, cacheMonsters, sc_hp);
+        makeResult();
+      });
+    });
+    // Scout Hp
+    $('.input-sc-hp').on('change', function() {
+      var $self = $(this),
+      rownum = $self.data('rownum'),
+      monsterid = $('#' + rownum + '-id').text();
+      $self.val($self.val().replace(/[^\d]/g, ''));
+      showMonsterInfo(rownum, monsterid, cacheMonsters);
+      showPrayValue(rownum, monsterid, cacheMonsters, $self.val());
+      makeResult();
+    });
+  });
+</script>
+</body>
+
+</html>
